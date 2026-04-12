@@ -1,0 +1,39 @@
+{
+    "embedder": {
+        "component_name": "OllamaEmbedder",
+        "params": {
+            "model_name": "nomic-embed-text-v2-moe",
+            "model_dimension": 768,
+            "max_tokens": 512,
+            "batch_size": 64,
+            "prefix_prompt": "search_query:"
+        }
+    },
+    "retriever": {
+        "component_name": "PostgresBM25Retriever",
+        "params": {
+            "dsn": "postgresql://postgres:postgres@db:5432/postgres",
+            "table_name": "docker_test"
+        }
+    },
+    "pre_filters": [],
+    "reranker": null,
+    "post_filters": [
+        {
+            "component_name": "TopKFilter",
+            "params": {
+                "top_k": 5
+            }
+        }
+    ],
+    "context_builder": {
+        "component_name": "GroupedContextBuilder",
+        "params": {
+            "max_chars": 12000
+        }
+    },
+    "formatter": {
+        "component_name": "DefaultResponseFormatter",
+        "params": {}
+    }
+}

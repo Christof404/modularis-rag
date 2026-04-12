@@ -1,0 +1,61 @@
+services:
+  db:
+    image: paradedb/paradedb:latest
+    container_name: modularis-db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: modularis-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+
+  ollama-pull:
+    image: ollama/ollama:latest
+    container_name: ollama-pull
+    depends_on:
+      - ollama
+    entrypoint: /bin/sh
+    command:
+      - "-c"
+      - |
+        sleep 5
+        echo "Wait for Ollama to be ready..."
+        while ! curl -s http://ollama:11434/api/tags > /dev/null; do sleep 2; done
+        echo "Pulling nomic-embed-text-v2-moe..."
+        ollama pull nomic-embed-text-v2-moe
+        echo "Model pulled successfully."
+
+  app:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: modularis-app
+    depends_on:
+      db:
+        condition: service_healthy
+      ollama:
+        condition: service_started
+    volumes:
+      - ..:/app
+    environment:
+      - DB_DSN=postgresql://postgres:postgres@db:5432/postgres
+      - OLLAMA_HOST=http://ollama:11434
+    stdin_open: true
+    tty: true
+    command: tail -f /dev/null
+
+volumes:
+  ollama_data:

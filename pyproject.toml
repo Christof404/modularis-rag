@@ -1,0 +1,53 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "modularis-rag"
+version = "0.1.2"
+authors = [
+  { name="Christof Haidegger" },
+]
+description = "Modularis RAG: A highly modular framework for Retrieval-Augmented Generation"
+readme = "Readme.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "langchain-text-splitters",
+    "langchain_experimental",
+    "sentence-transformers",
+    "psycopg[binary,pool]",
+    "langchain_community",
+    "langchain-ollama",
+    "lxml_html_clean",
+    "markitdown[all]",
+    "langchain-core",
+    "beautifulsoup4",
+    "scikit-learn",
+    "questionary",
+    "matplotlib",
+    "umap-learn",
+    "pydantic",
+    "ollama",
+    "rich",
+    "beir",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/christof404/modularis-rag"
+"Bug Tracker" = "https://github.com/christof404/modularis-rag/issues"
+"Performance Dashboard" = "https://ragevaluationvisualizer.fly.dev/"
+
+[project.scripts]
+modularis-eval = "evaluation.main:main"
+modularis-ingest = "rag_pipeline.ingestion.main:main"
+modularis-retrieve = "rag_pipeline.retrieval.main:main"
+
+[tool.setuptools.packages.find]
+include = ["evaluation*", "rag_pipeline*"]

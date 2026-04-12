@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Haidegger"
+  given-names: "Christof"
+title: "Modularis RAG: A highly modular framework for Retrieval-Augmented Generation"
+version: 0.1.2
+date-released: 2026-04-12
+url: "https://github.com/christof404/modularis-rag"

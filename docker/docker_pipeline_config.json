@@ -1,0 +1,53 @@
+{
+    "source": {
+        "component_name": "GoogleNQSource",
+        "params": {
+            "num_samples": 10,
+            "split": "validation"
+        }
+    },
+    "converter": {
+        "component_name": "HTMLToMarkdownConverter",
+        "params": {
+            "filters": [
+                {
+                    "component_name": "UniversalHtmlFilter",
+                    "params": {
+                        "apply_to": "page_content",
+                        "css_selector": ".mw-parser-output"
+                    }
+                }
+            ]
+        }
+    },
+    "filters": [],
+    "chunkers": [
+        {
+            "component_name": "RecursiveCharacterChunker",
+            "params": {
+                "chunk_size": 500,
+                "chunk_overlap": 50,
+                "filters": [],
+                "extractors": [],
+                "target_content_types": null
+            }
+        }
+    ],
+    "embedder": {
+        "component_name": "OllamaEmbedder",
+        "params": {
+            "model_name": "nomic-embed-text-v2-moe",
+            "model_dimension": 768,
+            "batch_size": 64,
+            "prefix_prompt": "search_document:"
+        }
+    },
+    "writer": {
+        "component_name": "PostgresWriter",
+        "params": {
+            "dsn": "postgresql://postgres:postgres@db:5432/postgres",
+            "table_name": "docker_test",
+            "vector_dimension": 768
+        }
+    }
+}
