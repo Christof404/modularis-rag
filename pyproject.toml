@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "modularis-rag"
-version = "0.1.2"
+version = "0.1.0"
 authors = [
   { name="Christof Haidegger" },
 ]

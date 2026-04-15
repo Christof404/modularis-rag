@@ -682,6 +682,6 @@ Bei Verwendung von ModularisRag in einer Forschung oder einem Projekt verwenden,
   title = {ModularisRag: A Comprehensive Python Toolkit for Indexing, Retrieval and Retrieval-Augmented Generation},
   year = {2026},
   url = {[https://github.com/Christof404/modularis-rag](https://github.com/Christof404/modularis-rag)},
-  version = {1.0.0}
+  version = {0.1.0}
 }
 ```
