@@ -45,7 +45,7 @@
     "writer": {
         "component_name": "PostgresWriter",
         "params": {
-            "dsn": "postgresql://postgres:postgres@db:5432/postgres",
+            "dsn": "postgresql://postgres:postgres@modularis-db:5432/postgres",
             "table_name": "docker_test",
             "vector_dimension": 768
         }

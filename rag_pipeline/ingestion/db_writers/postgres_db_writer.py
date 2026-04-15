@@ -93,7 +93,7 @@ class PostgresWriter(BaseDatabaseWriter):
 
                 # BM25 Index for pg_search
                 cur.execute(sql.SQL("""
-                    CREATE INDEX IF NOT EXISTS {} ON {} USING bm25 (page_content);
+                    CREATE INDEX IF NOT EXISTS {} ON {} USING bm25 (id, page_content) WITH (key_field='id');
                 """).format(sql.Identifier(f"idx_{self.table_name}_bm25"), sql.Identifier(self.table_name)))
 
     def write(self, chunks: List[Chunk]) -> None:

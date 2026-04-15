@@ -12,6 +12,20 @@ class OllamaEmbedder(BaseEmbedder):
                                     max_tokens=max_tokens)
         self.prefix_prompt = prefix_prompt
         self.batch_size = batch_size
+        self._ensure_model_exists()
+
+    def _ensure_model_exists(self):
+        """Ensures that the specified model exists in Ollama, pulling it if necessary."""
+        try:
+            ollama.show(self.model.model_name)
+        except Exception as e:
+            print(f"[WARNING] Model {self.model.model_name} not found or error checking. Attempting to pull... Message: {e}")
+            try:
+                ollama.pull(self.model.model_name)
+                print(f"[INFO] Model {self.model.model_name} pulled successfully.")
+            except Exception as pull_err:
+                print(f"[ERROR] Failed to pull model {self.model.model_name}: {pull_err}")
+                raise pull_err
 
     def get_prefix(self) -> str:
         return self.prefix_prompt

@@ -13,6 +13,8 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+    networks:
+      - rag-network
 
   ollama:
     image: ollama/ollama:latest
@@ -21,22 +23,29 @@ services:
       - "11434:11434"
     volumes:
       - ollama_data:/root/.ollama
+    networks:
+      - rag-network
 
   ollama-pull:
     image: ollama/ollama:latest
     container_name: ollama-pull
+    environment:
+      - OLLAMA_HOST=modularis-ollama:11434
     depends_on:
       - ollama
     entrypoint: /bin/sh
     command:
       - "-c"
       - |
-        sleep 5
-        echo "Wait for Ollama to be ready..."
-        while ! curl -s http://ollama:11434/api/tags > /dev/null; do sleep 2; done
-        echo "Pulling nomic-embed-text-v2-moe..."
+        echo "Wait for Ollama (modularis-ollama:11434) to be ready..."
+        while ! curl -s http://modularis-ollama:11434/api/tags > /dev/null; do
+          sleep 2
+        done
+        echo "Ollama is ready. Pulling nomic-embed-text-v2-moe..."
         ollama pull nomic-embed-text-v2-moe
-        echo "Model pulled successfully."
+        echo "Model pull completed."
+    networks:
+      - rag-network
 
   app:
     build:
@@ -51,11 +60,17 @@ services:
     volumes:
       - ..:/app
     environment:
-      - DB_DSN=postgresql://postgres:postgres@db:5432/postgres
-      - OLLAMA_HOST=http://ollama:11434
+      - DB_DSN=postgresql://postgres:postgres@modularis-db:5432/postgres
+      - OLLAMA_HOST=http://modularis-ollama:11434
     stdin_open: true
     tty: true
     command: tail -f /dev/null
+    networks:
+      - rag-network
+
+networks:
+  rag-network:
+    driver: bridge
 
 volumes:
   ollama_data:
