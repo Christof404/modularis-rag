@@ -95,7 +95,7 @@ Use this option if you want to do more than just a quick test of the framework.
 The most efficient way to create your own pipelines is using the interactive **Pipeline Builder**. 
 Example pipeline JSON configurations can also be found here: [https://ragevaluationvisualizer.fly.dev/](https://ragevaluationvisualizer.fly.dev/).
 
-[![get_example_json](https://raw.githubusercontent.com/Christof404/modularis-rag/main/static/assets/doc/vids/get_example_json.png)](https://raw.githubusercontent.com/Christof404/modularis-rag/main/static/assets/doc/vids/get_example_json.mp4)
+https://github.com/user-attachments/assets/f4ec4c3d-1ae7-4b5a-b02a-9a53a00a0825
 
 <details>
 <summary>Example: Baseline Indexing Pipeline</summary>
@@ -272,7 +272,9 @@ This allows different strategies to be evaluated independently and the most perf
 
 #### 3. Video Guide: Pipeline Creation
 
-[![create_index_pipeline](https://raw.githubusercontent.com/Christof404/modularis-rag/main/static/assets/doc/vids/create_index_pipeline.png)](https://raw.githubusercontent.com/Christof404/modularis-rag/main/static/assets/doc/vids/create_index_pipeline.mp4)
+
+https://github.com/user-attachments/assets/cff0c3be-987b-4902-b5a7-d6128dffd3c3
+
 
 #### 4. Programmatic Usage (JSON)
 The generated JSON schema can be loaded and executed directly in Python:
@@ -373,7 +375,7 @@ flowchart TD
 
 #### 3. Video Guide: Retrieval Creation
 
-[![create_retrieval_pipeline](https://raw.githubusercontent.com/Christof404/modularis-rag/main/static/assets/doc/vids/create_retrieval_pipeline.png)](https://raw.githubusercontent.com/Christof404/modularis-rag/main/static/assets/doc/vids/create_retrieval_pipeline.mp4)
+https://github.com/user-attachments/assets/f2a15289-eb16-4b53-a577-c852810bc0bc
 
 #### 4. Programmatic Usage (JSON)
 Integration of the retrieval configuration in Python:
@@ -524,7 +526,7 @@ python -m evaluation.main
 
 **Video Guide: Starting Evaluation**
 
-[![start_evaluation](https://raw.githubusercontent.com/Christof404/modularis-rag/main/static/assets/doc/vids/start_evaluation.png)](https://raw.githubusercontent.com/Christof404/modularis-rag/main/static/assets/doc/vids/start_evaluation.mp4)
+https://github.com/user-attachments/assets/bd0a26b2-5213-48c0-9a27-08efc924acb2
 
 **Example Output:**
 
@@ -656,7 +658,7 @@ The dashboard allows for an efficient comparison of these strategies.
 
 **Link to Dashboard:** [https://ragevaluationvisualizer.fly.dev/](https://ragevaluationvisualizer.fly.dev/)
 
-[![compare_visualizer](https://raw.githubusercontent.com/Christof404/modularis-rag/main/static/assets/doc/vids/compare_visualizer.png)](https://raw.githubusercontent.com/Christof404/modularis-rag/main/static/assets/doc/vids/compare_visualizer.mp4)
+https://github.com/user-attachments/assets/67890dbd-a00b-41d5-953a-e63bd1a3f94a
 
 ---
 
