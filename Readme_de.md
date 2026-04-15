@@ -95,7 +95,7 @@ Wähle diese Option, wenn du mehr als nur einen kurzen Test des Frameworks durch
 Der effizienteste Weg, eigene Pipelines zu erstellen, ist der interaktive **Pipeline Builder**. 
 Weitere Beispiel Pipeline JSON Konfigurationen können hier: [https://ragevaluationvisualizer.fly.dev/](https://ragevaluationvisualizer.fly.dev/) gefunden werden.
 
-[![get_example_json](https://raw.githubusercontent.com/Christof404/modularis-rag/main/static/assets/doc/vids/get_example_json.png)](https://raw.githubusercontent.com/Christof404/modularis-rag/main/static/assets/doc/vids/get_example_json.mp4)
+https://github.com/user-attachments/assets/f4ec4c3d-1ae7-4b5a-b02a-9a53a00a0825
 
 <details>
 <summary>Beispiel: Baseline Indexing Pipeline</summary>
@@ -272,7 +272,7 @@ So können verschiedene Strategien unabhängig voneinander evaluiert und die per
 
 #### 3. Video-Guide: Pipeline-Erstellung
 
-[![create_index_pipeline](https://raw.githubusercontent.com/Christof404/modularis-rag/main/static/assets/doc/vids/create_index_pipeline.png)](https://raw.githubusercontent.com/Christof404/modularis-rag/main/static/assets/doc/vids/create_index_pipeline.mp4)
+https://github.com/user-attachments/assets/cff0c3be-987b-4902-b5a7-d6128dffd3c3
 
 #### 4. Programmatische Nutzung (JSON)
 Das generierte JSON-Schema kann direkt in Python geladen und ausgeführt werden:
@@ -373,7 +373,7 @@ flowchart TD
 
 #### 3. Video-Guide: Retrieval-Erstellung
 
-[![create_retrieval_pipeline](https://raw.githubusercontent.com/Christof404/modularis-rag/main/static/assets/doc/vids/create_retrieval_pipeline.png)](https://raw.githubusercontent.com/Christof404/modularis-rag/main/static/assets/doc/vids/create_retrieval_pipeline.mp4)
+https://github.com/user-attachments/assets/f2a15289-eb16-4b53-a577-c852810bc0bc
 
 #### 4. Programmatische Nutzung (JSON)
 Einbindung der Retrieval-Konfiguration in Python:
@@ -524,7 +524,7 @@ python -m evaluation.main
 
 **Video-Guide: Evaluation starten**
 
-[![start_evaluation](https://raw.githubusercontent.com/Christof404/modularis-rag/main/static/assets/doc/vids/start_evaluation.png)](https://raw.githubusercontent.com/Christof404/modularis-rag/main/static/assets/doc/vids/start_evaluation.mp4)
+https://github.com/user-attachments/assets/bd0a26b2-5213-48c0-9a27-08efc924acb2
 
 **Beispielhafte Ausgabe:**
 
@@ -656,13 +656,13 @@ Das Dashboard ermöglicht einen effizienten Vergleich dieser Strategien.
 
 **Link zum Dashboard:** [https://ragevaluationvisualizer.fly.dev/](https://ragevaluationvisualizer.fly.dev/)
 
-[![compare_visualizer](https://raw.githubusercontent.com/Christof404/modularis-rag/main/static/assets/doc/vids/compare_visualizer.png)](https://raw.githubusercontent.com/Christof404/modularis-rag/main/static/assets/doc/vids/compare_visualizer.mp4)
+https://github.com/user-attachments/assets/67890dbd-a00b-41d5-953a-e63bd1a3f94a
 
 ---
 
 ### 🛤️ Roadmap
 Das Framework wird kontinuierlich erweitert:
-*   **Python-Paket:** A dedicated Python package (`modularis-rag`) will be released shortly, making installation even easier.
+*   **Python-Paket:** In Kürze wird ein spezielles Python-Paket (`modularis-rag`) veröffentlicht, das die Installation noch einfacher macht.
 *   **vLLM Integration:** Unterstützung von Batch-Processing für hocheffiziente LLM-basierte RAG-Strategien.
 *   **Auto-Tuning:** Automatische Suche nach optimalen Hyperparametern (Chunk-Size, Top-K) basierend auf Evaluationsmetriken.
 

@@ -272,9 +272,7 @@ This allows different strategies to be evaluated independently and the most perf
 
 #### 3. Video Guide: Pipeline Creation
 
-
 https://github.com/user-attachments/assets/cff0c3be-987b-4902-b5a7-d6128dffd3c3
-
 
 #### 4. Programmatic Usage (JSON)
 The generated JSON schema can be loaded and executed directly in Python:
