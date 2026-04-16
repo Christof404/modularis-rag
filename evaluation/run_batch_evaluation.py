@@ -3,10 +3,13 @@ import json
 
 # Configuration
 DSN = "postgresql://postgres:@localhost:5432/google_nq"
+
 START = 500
 END = 5000
 STEP = 500
+
 SPLIT = "validation"
+use_only_required_docs = False
 CONFIG_PATH = "pipeline_configs/pipeline_config.json"
 
 if __name__ == "__main__":
@@ -27,4 +30,5 @@ if __name__ == "__main__":
                    end_samples=END,
                    step=STEP,
                    retrieval_pipeline_json=config,
+                   use_only_required_docs=use_only_required_docs,
                    split=SPLIT)

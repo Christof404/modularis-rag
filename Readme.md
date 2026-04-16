@@ -561,10 +561,13 @@ Configure the parameters in `evaluation/run_batch_evaluation.py`:
 ```python
 # Configuration
 DSN = "postgresql://postgres:@localhost:5432/google_nq"
+
 START = 500
 END = 5000
 STEP = 500
+
 SPLIT = "validation"
+use_only_required_docs = False
 CONFIG_PATH = "pipeline_configs/pipeline_config.json"
 ```
 

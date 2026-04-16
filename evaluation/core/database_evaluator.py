@@ -44,6 +44,7 @@ class DatabaseEvaluator:
              step: int, 
              retrieval_pipeline_json: dict,
              split: str = "validation",
+             use_only_required_docs: bool = True,
              metrics_keys: list[str] = None):
         """
         Main entry point for batch evaluation of all tables in a database.
@@ -71,7 +72,7 @@ class DatabaseEvaluator:
             # 2. Run Scaling Evaluation with Progress Bar
             base_parameters = {"retrieval_pipeline": retrieval_pipeline,
                                "metrics": metrics,
-                               "use_only_required_docs": True,
+                               "use_only_required_docs": use_only_required_docs,
                                "split": split}
             
             with Progress(SpinnerColumn(),
@@ -92,7 +93,7 @@ class DatabaseEvaluator:
                                                           progress_callback=update_progress)
 
             # 3. Generate Visuals and Markdown Report
-            output_dir = Path(f"src/rag-database/pipeline_evaluations/evaluation/google_nq/{method_name}/{version}")
+            output_dir = Path(f"src/rag-database/pipeline_evaluations/evaluation/google_nq/all_docs_is_{not use_only_required_docs}/{method_name}/{version}")
             output_dir.mkdir(parents=True, exist_ok=True)
             
             plot_filename = "scaling_plot.png"
