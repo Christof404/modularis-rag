@@ -1,4 +1,5 @@
 from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TaskProgressColumn, TimeRemainingColumn
+from urllib.parse import urlparse, unquote
 from ..pipeline import EvaluationPipeline
 from .visualizing import MetricVisualizer
 from .reporting import ResultPresenter
@@ -8,12 +9,18 @@ from pathlib import Path
 from typing import Any
 import psycopg
 
+
 class DatabaseEvaluator:
     def __init__(self):
         self.pipeline = EvaluationPipeline()
         self.presenter = ResultPresenter()
         self.visualizer = MetricVisualizer()
         self.console = Console()
+
+    @staticmethod
+    def get_db_name_from_dsn(dsn: str) -> str:
+        parsed = urlparse(dsn)
+        return unquote(parsed.path.lstrip("/"))
 
     @staticmethod
     def _get_tables(dsn: str) -> list[str]:
@@ -31,20 +38,21 @@ class DatabaseEvaluator:
     def _patch_config(self, config: Any, table_name: str) -> Any:
         """Recursively replaces 'table_name' values in the configuration dictionary."""
         if isinstance(config, dict):
-            return {k: (table_name if k == "table_name" else self._patch_config(v, table_name)) 
+            return {k: (table_name if k == "table_name" else self._patch_config(v, table_name))
                     for k, v in config.items()}
         elif isinstance(config, list):
             return [self._patch_config(item, table_name) for item in config]
         return config
 
-    def main(self, 
-             dsn: str, 
-             start_samples: int, 
-             end_samples: int, 
-             step: int, 
+    def main(self,
+             dsn: str,
+             start_samples: int,
+             end_samples: int,
+             step: int,
              retrieval_pipeline_json: dict,
              split: str = "validation",
              use_only_required_docs: bool = True,
+             output_path: str = "pipeline_evaluations",
              metrics_keys: list[str] = None):
         """
         Main entry point for batch evaluation of all tables in a database.
@@ -53,16 +61,15 @@ class DatabaseEvaluator:
         metrics = [REGISTRY["metrics"][k]() for k in (metrics_keys or REGISTRY["metrics"].keys())]
         steps = list(range(start_samples, end_samples + 1, step))
         total_questions_per_table = max(steps)
-
-        self.console.print(f"[bold green]Found {len(tables)} tables to evaluate.[/bold green]")
+        self.console.print(f"[bold green]Found {len(tables) if 'spatial_ref_sys' not in tables else len(tables) - 1} tables to evaluate.[/bold green]")
 
         for table_name in tables:
-            if "_" not in table_name:
+            if "_" not in table_name or table_name == 'spatial_ref_sys':
                 self.console.print(f"[yellow]Skipping table '{table_name}' as it does not follow 'method_version' convention.[/yellow]")
                 continue
 
             method_name, version = table_name.split("_", 1)
-            
+
             self.console.rule(f"[bold cyan]Evaluating {method_name} (Version: {version})[/bold cyan]")
 
             # 1. Patch and Load Pipeline
@@ -74,16 +81,16 @@ class DatabaseEvaluator:
                                "metrics": metrics,
                                "use_only_required_docs": use_only_required_docs,
                                "split": split}
-            
+
             with Progress(SpinnerColumn(),
                           TextColumn("[progress.description]{task.description}"),
                           BarColumn(),
                           TaskProgressColumn(),
                           TimeRemainingColumn(),
                           console=self.console) as progress:
-                
+
                 eval_task = progress.add_task(f"[magenta]Processing {table_name}", total=total_questions_per_table)
-                
+
                 def update_progress():
                     progress.advance(eval_task)
 
@@ -93,9 +100,9 @@ class DatabaseEvaluator:
                                                           progress_callback=update_progress)
 
             # 3. Generate Visuals and Markdown Report
-            output_dir = Path(f"src/rag-database/pipeline_evaluations/evaluation/google_nq/all_docs_is_{not use_only_required_docs}/{method_name}/{version}")
+            output_dir = Path(f"{output_path}/{self.get_db_name_from_dsn(dsn)}/all_docs_is_{not use_only_required_docs}/{method_name}/{version}")
             output_dir.mkdir(parents=True, exist_ok=True)
-            
+
             plot_filename = "scaling_plot.png"
             plot_path = output_dir / plot_filename
             self.visualizer.create_scaling_plot(all_summaries, plot_path, title=f"Scaling Analysis: {table_name}")
@@ -107,8 +114,8 @@ class DatabaseEvaluator:
                                                                 plot_filename=plot_filename)
 
             # 4. Save Results as output.md
-            output_path = output_dir / "output.md"
-            with open(output_path, "w", encoding="utf-8") as f:
+            report_file_path = output_dir / "output.md"
+            with open(report_file_path, "w", encoding="utf-8") as f:
                 f.write(md_report)
 
             self.console.print(f"[green]Report and Plot saved to:[/green] {output_dir}\n")

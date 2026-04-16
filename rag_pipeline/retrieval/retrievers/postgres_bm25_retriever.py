@@ -4,6 +4,7 @@ from psycopg.rows import dict_row
 from psycopg import sql
 from typing import List
 import psycopg
+import re
 
 
 class PostgresBM25Retriever(BaseRetriever):
@@ -22,6 +23,8 @@ class PostgresBM25Retriever(BaseRetriever):
         """
         # 1. Base Query with pg_search @@@ operator and score() function
         # Use alias 'd' to safely reference ctid for the score function
+        safe_query_text = re.sub(r'[^\w\s]', ' ', query.text).lower()
+
         query_sql = sql.SQL("""
             SELECT
                 document_id,
@@ -36,7 +39,7 @@ class PostgresBM25Retriever(BaseRetriever):
         # 2. Dynamic Filtering (JSONB or source_id)
         # Note: Must use the alias 'd' if use one in the FROM clause
         where_clauses: list[sql.Composable] = []
-        params: list[object] = [query.text]
+        params: list[object] = [safe_query_text]
 
         if query.filters:
             for key, value in query.filters.items():
