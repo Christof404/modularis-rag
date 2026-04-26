@@ -654,7 +654,7 @@ PIPELINE PERFORMANCE REPORT
 
 ### 📈 Evaluation Dashboard
 To test the framework and known strategies, a total of 22 indexing pipelines, each with 5000 documents from the GoogleNQ dataset, were imported. 
-Each corpus was tested with 12 different retrieval strategies. The resulting 264 independent evaluation results highlight the strengths and weaknesses of the respective approaches. 
+Each corpus was tested with 12 different retrieval strategies. The resulting 440 independent evaluation results highlight the strengths and weaknesses of the respective approaches. 
 The dashboard allows for an efficient comparison of these strategies.
 
 **Link to Dashboard:** [https://ragevaluationvisualizer.fly.dev/](https://ragevaluationvisualizer.fly.dev/)
