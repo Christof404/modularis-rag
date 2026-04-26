@@ -654,7 +654,7 @@ PIPELINE PERFORMANCE REPORT
 
 ### 📈 Evaluation Dashboard
 Um das Framework und bekannte Strategien zu testen, wurden insgesamt 22 Indexierungs-Pipelines mit jeweils 5000 Dokumenten aus dem GoogleNQ-Datensatz eingespielt. 
-Jeder Korpus wurde mit 12 verschiedenen Retrieval-Strategien getestet. Die resultierenden 264 unabhängigen Evaluationsergebnisse verdeutlichen die Stärken und Schwächen der jeweiligen Ansätze. 
+Jeder Korpus wurde mit 12 verschiedenen Retrieval-Strategien getestet. Die resultierenden 440 unabhängigen Evaluationsergebnisse verdeutlichen die Stärken und Schwächen der jeweiligen Ansätze. 
 Das Dashboard ermöglicht einen effizienten Vergleich dieser Strategien.
 
 **Link zum Dashboard:** [https://ragevaluationvisualizer.fly.dev/](https://ragevaluationvisualizer.fly.dev/)
